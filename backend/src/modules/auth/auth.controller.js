@@ -50,7 +50,8 @@ export async function login(req, res){
       user: {
         id: user.id,
         name: user.name,
-        email: user.email
+        email: user.email,
+        role: user.role
       }
     });
   } catch(error){

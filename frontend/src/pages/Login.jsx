@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
+import bgLogin from "@/assets/elgin-background.png"
+
 export default function Login() {
   const navigate = useNavigate()
 
@@ -26,7 +28,6 @@ export default function Login() {
 
     try {
       if (isRegister) {
-        // REGISTRO
         await registerService(name, email, password)
         setSuccess("Conta criada! Faça login.")
         setIsRegister(false)
@@ -34,7 +35,6 @@ export default function Login() {
         setEmail("")
         setPassword("")
       } else {
-        // LOGIN
         const data = await loginService(email, password)
         localStorage.setItem("token", data.token)
         localStorage.setItem("user", JSON.stringify(data.user))
@@ -47,11 +47,20 @@ export default function Login() {
     }
   }
 
+  // ✅ RETURN ATUALIZADO COM IMAGEM DE FUNDO
   return (
-    <div className="flex min-h-screen items-center justify-center bg-muted">
-      <Card className="w-full max-w-sm">
+    <div
+      className="relative flex min-h-screen items-center justify-center bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${bgLogin})` }}
+    >
+      {/* Overlay escuro */}
+      <div className="absolute inset-0 bg-black/50" />
+
+      <Card className="relative z-10 w-full max-w-sm bg-white/95 backdrop-blur-sm">
         <CardHeader>
-          <CardTitle>{isRegister ? "Criar Conta" : "Login"}</CardTitle>
+          <CardTitle className="text-center text-2xl">
+            {isRegister ? "Criar Conta" : "Login"}
+          </CardTitle>
         </CardHeader>
 
         <CardContent>

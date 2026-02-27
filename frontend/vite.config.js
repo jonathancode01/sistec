@@ -1,24 +1,32 @@
-// frontend/vite.config.js
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
-import path from 'path'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import path from "path";
 
-export default defineConfig({
-  plugins: [
-    react(),
-    tailwindcss()
-  ],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
-  },
-  server: {
-    host: '0.0.0.0',
-    port: 5173,
-    watch: {
-      usePolling: true
+export default defineConfig(async ({ mode }) => {
+  const plugins = [react()];
+
+  if (mode === "development") {
+    try {
+      const { componentTagger } = await import("lovable-tagger");
+      plugins.push(componentTagger());
+    } catch (err) {
+      console.warn("lovable-tagger não encontrado, seguindo sem ele");
     }
   }
-})
+
+  return {
+    server: {
+      host: "::",
+      port: 5173,
+      hmr: {
+        overlay: false,
+      },
+    },
+    plugins,
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "./src"),
+      },
+    },
+  };
+});

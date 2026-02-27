@@ -1,42 +1,62 @@
-import { Router } from 'express';
-import { login, register } from './auth.controller.js';
-import { authMiddleware } from './auth.middleware.js'
-import { authorizeRoles } from './role.middleware.js';
+import express from 'express'
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import { PrismaClient } from '@prisma/client'
 
 
-const router = Router();
+const router = express.Router()
+const prisma = new PrismaClient()
 
-// rotas publicas
-router.post('/register', register);
-router.post('/login', login)
+// REGISTRO
+router.post('/register', async (req, res) => {
+  try {
+    const { name, email, password } = req.body
 
-
-// fazer as rotas protegidas dos usuarios principais
-router.get(
-    '/admin',
-    authMiddleware,
-    authorizeRoles('admin'),
-    (req, res) => {
-        res.json({ message: 'Área do admin' });
+    const userExists = await prisma.user.findUnique({ where: { email } })
+    if (userExists) {
+      return res.status(400).json({ error: 'Email já cadastrado' })
     }
-);
 
-router.get(
-    '/tecnico',
-    authMiddleware,
-    authorizeRoles('admin', 'tecnico'),
-    (req, res) => {
-        res.json({ message: 'Área técnico'});
-    }
-);
+    const hashedPassword = await bcrypt.hash(password, 10)
 
-router.get(
-    '/usuario',
-    authMiddleware,
-    authorizeRoles('admin', 'tecnico', 'usuario'),
-    (req, res) => {
-        res.json({ message: 'Área do usuário'});
+    const user = await prisma.user.create({
+      data: { name, email, password: hashedPassword }
+    })
+
+    res.status(201).json({ message: 'Usuário criado com sucesso' })
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao criar usuário' })
+  }
+})
+
+// LOGIN
+router.post('/login', async (req, res) => {
+  try {
+    const { email, password } = req.body
+
+    const user = await prisma.user.findUnique({ where: { email } })
+    if (!user) {
+      return res.status(401).json({ error: 'Credenciais inválidas' })
     }
-);
+
+    const validPassword = await bcrypt.compare(password, user.password)
+    if (!validPassword) {
+      return res.status(401).json({ error: 'Credenciais inválidas' })
+    }
+
+    const token = jwt.sign(
+      { id: user.id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRES_IN }
+    )
+
+    res.json({
+      token,
+      user: { id: user.id, name: user.name, email: user.email }
+    })
+  } catch (error) {
+    res.status(500).json({ error: 'Erro no login' })
+  }
+})
 
 export default router;

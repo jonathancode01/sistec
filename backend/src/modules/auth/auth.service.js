@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import UserRepository from '../../repositories/user.repository.js';
 
 export async function registerUser({ name, email, password }) {
@@ -13,13 +14,15 @@ export async function registerUser({ name, email, password }) {
   const user = await UserRepository.create({
     name,
     email,
-    password: hashedPassword
+    password: hashedPassword,
+    role: 'usuario' // 👈 importante para RBAC
   });
 
   return {
     id: user.id,
     name: user.name,
-    email: user.email
+    email: user.email,
+    role: user.role
   };
 }
 
@@ -36,5 +39,23 @@ export async function loginUser({ email, password }) {
     throw new Error('Email ou senha inválidos');
   }
 
-  return user;
+  // 🔐 Geração do JWT
+  const token = jwt.sign(
+    {
+      id: user.id,
+      role: user.role
+    },
+    process.env.JWT_SECRET,
+    { expiresIn: '1d' }
+  );
+
+  return {
+    user: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role
+    },
+    token
+  };
 }

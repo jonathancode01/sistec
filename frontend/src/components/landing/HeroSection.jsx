@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { ChevronDown } from "lucide-react";
+import { motion } from "framer-motion"
+import { Button } from "@/components/ui/button"
+import { ChevronDown } from "lucide-react"
 
 const HeroSection = () => {
   return (
@@ -19,7 +19,7 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          <p className="text-sm md:text-base tracking-[0.3em] uppercase text-primary mb-6 font-body font-light">
+          <p className="text-sm md:text-base tracking-[0.3em] uppercase text-primary mb-6 font-light">
             15 Anos de Excelência em Coquetelaria
           </p>
         </motion.div>
@@ -28,10 +28,12 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-4xl md:text-6xl lg:text-7xl font-display font-bold leading-tight mb-8"
+          className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8"
         >
           Transformamos seu evento em uma{" "}
-          <span className="text-gradient-gold">experiência inesquecível</span>
+          <span className="bg-gradient-to-r from-amber-400 to-yellow-500 bg-clip-text text-transparent">
+            experiência inesquecível
+          </span>
         </motion.h1>
 
         <motion.p
@@ -40,7 +42,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.7 }}
           className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 font-light leading-relaxed"
         >
-          Open bar premium com bartenders especializados. 
+          Open bar premium com bartenders especializados.
           A sofisticação que seu evento merece.
         </motion.p>
 
@@ -51,7 +53,7 @@ const HeroSection = () => {
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
           <a href="#planos">
-            <Button variant="accent" size="lg" className="text-base px-8">
+            <Button size="lg" className="text-base px-8">
               Conhecer Planos
             </Button>
           </a>
@@ -79,7 +81,7 @@ const HeroSection = () => {
         </motion.div>
       </motion.a>
     </section>
-  );
-};
+  )
+}
 
-export default HeroSection;
+export default HeroSection

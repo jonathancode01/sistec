@@ -1,9 +1,13 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
+import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 
 export default defineConfig(async ({ mode }) => {
-  const plugins = [react()];
+  const plugins = [
+    react(),
+    tailwindcss(),
+  ];
 
   if (mode === "development") {
     try {

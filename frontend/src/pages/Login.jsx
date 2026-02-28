@@ -47,14 +47,33 @@ export default function Login() {
     }
   }
 
-  // ✅ RETURN ATUALIZADO COM IMAGEM DE FUNDO
   return (
     <div
       className="relative flex min-h-screen items-center justify-center bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url(${bgLogin})` }}
     >
-      {/* Overlay escuro */}
       <div className="absolute inset-0 bg-black/50" />
+
+      {/* ✅ BOTÃO VOLTAR PARA HOME */}
+      <button
+        onClick={() => navigate("/")}
+        className="absolute top-6 left-6 z-20 flex items-center gap-2 
+                   text-white/80 hover:text-white transition-colors"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fillRule="evenodd"
+            d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+            clipRule="evenodd"
+          />
+        </svg>
+        Voltar ao Início
+      </button>
 
       <Card className="relative z-10 w-full max-w-sm bg-white/95 backdrop-blur-sm">
         <CardHeader>
@@ -65,7 +84,6 @@ export default function Login() {
 
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-
             {isRegister && (
               <Input
                 type="text"
@@ -92,18 +110,13 @@ export default function Login() {
               required
             />
 
-            {error && (
-              <p className="text-sm text-red-500">{error}</p>
-            )}
-
-            {success && (
-              <p className="text-sm text-green-500">{success}</p>
-            )}
+            {error && <p className="text-sm text-red-500">{error}</p>}
+            {success && <p className="text-sm text-green-500">{success}</p>}
 
             <Button type="submit" className="w-full" disabled={loading}>
               {loading
-                ? (isRegister ? "Cadastrando..." : "Entrando...")
-                : (isRegister ? "Cadastrar" : "Entrar")
+                ? isRegister ? "Cadastrando..." : "Entrando..."
+                : isRegister ? "Cadastrar" : "Entrar"
               }
             </Button>
 

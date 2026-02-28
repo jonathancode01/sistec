@@ -1,9 +1,9 @@
-import SectionWrapper from "./SectionWrapper";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Check } from "lucide-react";
-import { motion } from "framer-motion";
+import SectionWrapper from "./SectionWrapper"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Separator } from "@/components/ui/separator"
+import { Check } from "lucide-react"
+import { motion } from "framer-motion"
 
 const plans = [
   {
@@ -46,17 +46,20 @@ const plans = [
     ],
     highlighted: false,
   },
-];
+]
 
 const PlansSection = () => {
   return (
     <SectionWrapper id="planos">
       <div className="text-center mb-16">
-        <p className="text-sm tracking-[0.3em] uppercase text-primary mb-4 font-body">
+        <p className="text-sm tracking-[0.3em] uppercase text-primary mb-4">
           Planos
         </p>
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-4">
-          Escolha a experiência <span className="text-gradient-gold">ideal</span>
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+          Escolha a experiência{" "}
+          <span className="bg-gradient-to-r from-amber-400 to-yellow-500 bg-clip-text text-transparent">
+            ideal
+          </span>
         </h2>
         <Separator className="w-16 bg-primary mx-auto mt-6" />
       </div>
@@ -71,18 +74,18 @@ const PlansSection = () => {
             transition={{ delay: i * 0.15, duration: 0.6 }}
             className={`relative rounded-xl p-8 border transition-all duration-500 hover:translate-y-[-4px] ${
               plan.highlighted
-                ? "bg-card border-primary/40 glow-gold"
+                ? "bg-card border-primary/40 shadow-[0_0_30px_rgba(234,179,8,0.15)]"
                 : "bg-card border-border hover:border-primary/20"
             }`}
           >
             {plan.badge && (
-              <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-accent-foreground border-0 px-4 py-1 text-xs tracking-wider uppercase font-body">
+              <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-white border-0 px-4 py-1 text-xs tracking-wider uppercase">
                 {plan.badge}
               </Badge>
             )}
 
             <div className="text-center mb-8">
-              <h3 className="text-xl font-display font-bold text-foreground mb-2">
+              <h3 className="text-xl font-bold text-foreground mb-2">
                 {plan.name}
               </h3>
               <p className="text-sm text-muted-foreground font-light">
@@ -96,7 +99,7 @@ const PlansSection = () => {
               {plan.features.map((feature) => (
                 <li key={feature} className="flex items-start gap-3">
                   <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-secondary-foreground font-light">
+                  <span className="text-sm text-muted-foreground font-light">
                     {feature}
                   </span>
                 </li>
@@ -105,7 +108,7 @@ const PlansSection = () => {
 
             <a href="#orcamento" className="block">
               <Button
-                variant={plan.highlighted ? "accent" : "outline"}
+                variant={plan.highlighted ? "default" : "outline"}
                 className="w-full"
               >
                 Solicitar Orçamento
@@ -115,7 +118,7 @@ const PlansSection = () => {
         ))}
       </div>
     </SectionWrapper>
-  );
-};
+  )
+}
 
-export default PlansSection;
+export default PlansSection

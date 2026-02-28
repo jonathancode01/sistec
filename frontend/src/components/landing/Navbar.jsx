@@ -1,9 +1,11 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import logo from "@/assets/logo-portos-bar.jpeg";
+import { useState } from "react"
+import { motion } from "framer-motion"
+import { Menu } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+
+// ✅ Troque pelo logo do seu projeto
+// import logo from "@/assets/logo-portos-bar.jpeg"
 
 const navLinks = [
   { label: "Início", href: "#hero" },
@@ -11,10 +13,10 @@ const navLinks = [
   { label: "Planos", href: "#planos" },
   { label: "Orçamento", href: "#orcamento" },
   { label: "Contato", href: "#contato" },
-];
+]
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
 
   return (
     <motion.nav
@@ -25,8 +27,8 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-12 py-4">
         <a href="#hero" className="flex items-center gap-3">
-          <img src={logo} alt="Porto's Bar" className="h-10 w-10 rounded-full object-cover" />
-          <span className="font-display text-lg tracking-wider text-primary">
+          {/* <img src={logo} alt="Porto's Bar" className="h-10 w-10 rounded-full object-cover" /> */}
+          <span className="font-bold text-lg tracking-wider text-primary">
             PORTO'S BAR
           </span>
         </a>
@@ -37,13 +39,13 @@ const Navbar = () => {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-body tracking-wide text-muted-foreground hover:text-primary transition-colors duration-300"
+              className="text-sm tracking-wide text-muted-foreground hover:text-primary transition-colors duration-300"
             >
               {link.label}
             </a>
           ))}
           <a href="#orcamento">
-            <Button variant="accent" size="sm">
+            <Button size="sm">
               Solicitar Orçamento
             </Button>
           </a>
@@ -63,13 +65,13 @@ const Navbar = () => {
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="text-lg font-body tracking-wide text-muted-foreground hover:text-primary transition-colors"
+                  className="text-lg tracking-wide text-muted-foreground hover:text-primary transition-colors"
                 >
                   {link.label}
                 </a>
               ))}
               <a href="#orcamento" onClick={() => setOpen(false)}>
-                <Button variant="accent" className="w-full mt-4">
+                <Button className="w-full mt-4">
                   Solicitar Orçamento
                 </Button>
               </a>
@@ -78,7 +80,7 @@ const Navbar = () => {
         </Sheet>
       </div>
     </motion.nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

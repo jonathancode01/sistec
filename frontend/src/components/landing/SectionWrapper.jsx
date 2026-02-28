@@ -1,13 +1,6 @@
-import { ReactNode } from "react";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"
 
-interface SectionWrapperProps {
-  children: ReactNode;
-  id?: string;
-  className?: string;
-}
-
-const SectionWrapper = ({ children, id, className = "" }: SectionWrapperProps) => {
+const SectionWrapper = ({ children, id, className = "" }) => {
   return (
     <motion.section
       id={id}
@@ -19,7 +12,7 @@ const SectionWrapper = ({ children, id, className = "" }: SectionWrapperProps) =
     >
       <div className="max-w-7xl mx-auto">{children}</div>
     </motion.section>
-  );
-};
+  )
+}
 
-export default SectionWrapper;
+export default SectionWrapper

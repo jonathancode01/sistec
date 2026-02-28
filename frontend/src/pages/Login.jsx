@@ -3,12 +3,6 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { login as loginService, register as registerService } from "../services/auth.service"
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-
-import bgLogin from "@/assets/elgin-background.png"
-
 export default function Login() {
   const navigate = useNavigate()
 
@@ -47,96 +41,253 @@ export default function Login() {
     }
   }
 
+  const inputStyle = {
+    width: "100%",
+    padding: "12px 16px",
+    borderRadius: "8px",
+    border: "1px solid #2A2A2A",
+    backgroundColor: "#1A1A1A",
+    color: "#F5F5F5",
+    fontSize: "14px",
+    outline: "none",
+    transition: "border-color 0.3s, box-shadow 0.3s",
+  }
+
   return (
     <div
-      className="relative flex min-h-screen items-center justify-center bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: `url(${bgLogin})` }}
+      className="relative flex min-h-screen items-center justify-center overflow-hidden"
+      style={{ backgroundColor: "#000000" }}
     >
-      <div className="absolute inset-0 bg-black/50" />
+      {/* ========== MESH GRID BACKGROUND ========== */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Grid dourado */}
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(212, 175, 55, 0.06) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(212, 175, 55, 0.06) 1px, transparent 1px)
+            `,
+            backgroundSize: "60px 60px",
+          }}
+        />
+        {/* Pontos nos cruzamentos */}
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(circle, rgba(212, 175, 55, 0.12) 1px, transparent 1px)`,
+            backgroundSize: "60px 60px",
+          }}
+        />
+        {/* Pontos vermelhos espaçados */}
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(circle, rgba(193, 18, 31, 0.08) 1px, transparent 1px)`,
+            backgroundSize: "180px 180px",
+            backgroundPosition: "30px 30px",
+          }}
+        />
+        {/* Glow dourado central */}
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-[200px]"
+          style={{ backgroundColor: "rgba(212, 175, 55, 0.05)" }}
+        />
+        {/* Glow vermelho sutil */}
+        <div
+          className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] rounded-full blur-[150px]"
+          style={{ backgroundColor: "rgba(193, 18, 31, 0.03)" }}
+        />
+        {/* Vignette */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.8) 100%)",
+          }}
+        />
+      </div>
 
-      {/* ✅ BOTÃO VOLTAR PARA HOME */}
+      {/* ========== BOTÃO VOLTAR ========== */}
       <button
         onClick={() => navigate("/")}
-        className="absolute top-6 left-6 z-20 flex items-center gap-2 
-                   text-white/80 hover:text-white transition-colors"
+        className="absolute top-6 left-6 z-20 flex items-center gap-2 transition-colors duration-300"
+        style={{ color: "#D4AF37" }}
+        onMouseEnter={(e) => (e.currentTarget.style.color = "#E8D48B")}
+        onMouseLeave={(e) => (e.currentTarget.style.color = "#D4AF37")}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fillRule="evenodd"
-            d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
-            clipRule="evenodd"
-          />
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
         </svg>
         Voltar ao Início
       </button>
 
-      <Card className="relative z-10 w-full max-w-sm bg-white/95 backdrop-blur-sm">
-        <CardHeader>
-          <CardTitle className="text-center text-2xl">
-            {isRegister ? "Criar Conta" : "Login"}
-          </CardTitle>
-        </CardHeader>
+      {/* ========== CARD DE LOGIN ========== */}
+      <div
+        className="relative z-10 w-full max-w-sm mx-4 rounded-xl p-8"
+        style={{
+          backgroundColor: "rgba(10, 10, 10, 0.95)",
+          border: "1px solid rgba(212, 175, 55, 0.2)",
+          boxShadow: "0 0 40px rgba(212, 175, 55, 0.08)",
+          backdropFilter: "blur(10px)",
+        }}
+      >
+        {/* Logo */}
+        <div className="text-center mb-8">
+          <h1
+            className="text-xl font-bold tracking-wider mb-2"
+            style={{ color: "#D4AF37" }}
+          >
+            PORTO'S BAR
+          </h1>
+          <h2
+            className="text-2xl font-bold"
+            style={{ color: "#F5F5F5" }}
+          >
+            {isRegister ? "Criar Conta" : "Entrar"}
+          </h2>
+          <div
+            className="w-12 h-[2px] mx-auto mt-3"
+            style={{ backgroundColor: "#D4AF37" }}
+          />
+        </div>
 
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {isRegister && (
-              <Input
-                type="text"
-                placeholder="Nome"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            )}
-
-            <Input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+        {/* Formulário */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {isRegister && (
+            <input
+              type="text"
+              placeholder="Nome completo"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               required
+              style={inputStyle}
+              onFocus={(e) => {
+                e.target.style.borderColor = "#D4AF37"
+                e.target.style.boxShadow = "0 0 10px rgba(212, 175, 55, 0.15)"
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = "#2A2A2A"
+                e.target.style.boxShadow = "none"
+              }}
             />
+          )}
 
-            <Input
-              type="password"
-              placeholder="Senha"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            style={inputStyle}
+            onFocus={(e) => {
+              e.target.style.borderColor = "#D4AF37"
+              e.target.style.boxShadow = "0 0 10px rgba(212, 175, 55, 0.15)"
+            }}
+            onBlur={(e) => {
+              e.target.style.borderColor = "#2A2A2A"
+              e.target.style.boxShadow = "none"
+            }}
+          />
 
-            {error && <p className="text-sm text-red-500">{error}</p>}
-            {success && <p className="text-sm text-green-500">{success}</p>}
+          <input
+            type="password"
+            placeholder="Senha"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            style={inputStyle}
+            onFocus={(e) => {
+              e.target.style.borderColor = "#D4AF37"
+              e.target.style.boxShadow = "0 0 10px rgba(212, 175, 55, 0.15)"
+            }}
+            onBlur={(e) => {
+              e.target.style.borderColor = "#2A2A2A"
+              e.target.style.boxShadow = "none"
+            }}
+          />
 
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading
-                ? isRegister ? "Cadastrando..." : "Entrando..."
-                : isRegister ? "Cadastrar" : "Entrar"
-              }
-            </Button>
-
-            <p className="text-center text-sm text-muted-foreground">
-              {isRegister ? "Já tem conta?" : "Não tem conta?"}{" "}
-              <button
-                type="button"
-                onClick={() => {
-                  setIsRegister(!isRegister)
-                  setError("")
-                  setSuccess("")
-                }}
-                className="text-primary underline hover:text-primary/80"
-              >
-                {isRegister ? "Fazer login" : "Criar conta"}
-              </button>
+          {/* Mensagem de erro */}
+          {error && (
+            <p
+              className="text-sm text-center py-2 px-3 rounded-md"
+              style={{
+                color: "#FFFFFF",
+                backgroundColor: "rgba(193, 18, 31, 0.2)",
+                border: "1px solid rgba(193, 18, 31, 0.3)",
+              }}
+            >
+              {error}
             </p>
-          </form>
-        </CardContent>
-      </Card>
+          )}
+
+          {/* Mensagem de sucesso */}
+          {success && (
+            <p
+              className="text-sm text-center py-2 px-3 rounded-md"
+              style={{
+                color: "#D4AF37",
+                backgroundColor: "rgba(212, 175, 55, 0.1)",
+                border: "1px solid rgba(212, 175, 55, 0.2)",
+              }}
+            >
+              {success}
+            </p>
+          )}
+
+          {/* Botão submit */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full py-3 font-semibold rounded-md transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
+            style={{
+              backgroundColor: "#C1121F",
+              color: "#FFFFFF",
+              boxShadow: "0 0 20px rgba(193, 18, 31, 0.3)",
+            }}
+            onMouseEnter={(e) => {
+              if (!loading) {
+                e.target.style.backgroundColor = "#D4343F"
+                e.target.style.boxShadow = "0 0 30px rgba(193, 18, 31, 0.5)"
+              }
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = "#C1121F"
+              e.target.style.boxShadow = "0 0 20px rgba(193, 18, 31, 0.3)"
+            }}
+          >
+            {loading
+              ? (isRegister ? "Cadastrando..." : "Entrando...")
+              : (isRegister ? "Cadastrar" : "Entrar")
+            }
+          </button>
+
+          {/* Divisor */}
+          <div className="flex items-center gap-4 my-2">
+            <div className="flex-1 h-[1px]" style={{ backgroundColor: "#2A2A2A" }} />
+            <span className="text-xs" style={{ color: "#8A8A8A" }}>ou</span>
+            <div className="flex-1 h-[1px]" style={{ backgroundColor: "#2A2A2A" }} />
+          </div>
+
+          {/* Toggle login/register */}
+          <p className="text-center text-sm" style={{ color: "#8A8A8A" }}>
+            {isRegister ? "Já tem conta?" : "Não tem conta?"}{" "}
+            <button
+              type="button"
+              onClick={() => {
+                setIsRegister(!isRegister)
+                setError("")
+                setSuccess("")
+              }}
+              className="underline transition-colors duration-300"
+              style={{ color: "#D4AF37" }}
+              onMouseEnter={(e) => (e.target.style.color = "#E8D48B")}
+              onMouseLeave={(e) => (e.target.style.color = "#D4AF37")}
+            >
+              {isRegister ? "Fazer login" : "Criar conta"}
+            </button>
+          </p>
+        </form>
+      </div>
     </div>
   )
 }

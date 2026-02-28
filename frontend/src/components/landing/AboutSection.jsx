@@ -1,5 +1,4 @@
 import SectionWrapper from "./SectionWrapper"
-import { Separator } from "@/components/ui/separator"
 import { GlassWater, Star, Users, Calendar } from "lucide-react"
 import { motion } from "framer-motion"
 
@@ -15,23 +14,34 @@ const AboutSection = () => {
     <SectionWrapper id="sobre">
       <div className="grid md:grid-cols-2 gap-16 items-center">
         <div>
-          <p className="text-sm tracking-[0.3em] uppercase text-primary mb-4">
+          <p
+            className="text-sm tracking-[0.3em] uppercase mb-4"
+            style={{ color: "#D4AF37" }}
+          >
             Sobre Nós
           </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+          <h2
+            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight"
+            style={{ color: "#F5F5F5" }}
+          >
             A arte da{" "}
-            <span className="bg-gradient-to-r from-amber-400 to-yellow-500 bg-clip-text text-transparent">
+            <span
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage: "linear-gradient(135deg, #D4AF37, #E8D48B, #D4AF37)",
+              }}
+            >
               coquetelaria
             </span>{" "}
             premium
           </h2>
-          <Separator className="w-16 bg-primary mb-8" />
-          <p className="text-muted-foreground leading-relaxed mb-6 font-light">
+          <div className="w-16 h-[2px] mb-8" style={{ backgroundColor: "#D4AF37" }} />
+          <p className="leading-relaxed mb-6 font-light" style={{ color: "#CFCFCF" }}>
             Há 15 anos, a Porto's Bar é referência em serviços de open bar para eventos
             corporativos e sociais. Nossa equipe de bartenders especializados cria
             experiências únicas com drinks autorais e clássicos reinventados.
           </p>
-          <p className="text-muted-foreground leading-relaxed font-light">
+          <p className="leading-relaxed font-light" style={{ color: "#CFCFCF" }}>
             Cada evento é tratado com exclusividade, do planejamento à execução.
             Utilizamos ingredientes selecionados e técnicas de mixologia contemporânea
             para superar todas as expectativas.
@@ -48,13 +58,28 @@ const AboutSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.15, duration: 0.5 }}
-                className="bg-card border border-border rounded-lg p-6 text-center hover:border-primary/30 transition-colors duration-500 group"
+                className="rounded-lg p-6 text-center transition-all duration-500 group hover:scale-105"
+                style={{
+                  backgroundColor: "#0A0A0A",
+                  border: "1px solid #2A2A2A",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(212, 175, 55, 0.4)")}
+                onMouseLeave={(e) => (e.currentTarget.style.borderColor = "#2A2A2A")}
               >
-                <IconComponent className="h-6 w-6 text-primary mx-auto mb-3 group-hover:scale-110 transition-transform duration-300" />
-                <p className="text-2xl md:text-3xl font-bold text-foreground mb-1">
+                <IconComponent
+                  className="h-6 w-6 mx-auto mb-3 group-hover:scale-110 transition-transform duration-300"
+                  style={{ color: "#D4AF37" }}
+                />
+                <p
+                  className="text-2xl md:text-3xl font-bold mb-1"
+                  style={{ color: "#F5F5F5" }}
+                >
                   {stat.value}
                 </p>
-                <p className="text-xs text-muted-foreground tracking-wide uppercase">
+                <p
+                  className="text-xs tracking-wide uppercase"
+                  style={{ color: "#8A8A8A" }}
+                >
                   {stat.label}
                 </p>
               </motion.div>
